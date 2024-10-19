@@ -20,6 +20,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dpapi-cli-build
-          path: ${{ github.workspace }}/**/*
+          path: ${{ github.workspace }}/build/Release_x64/bin/dpapi-cli.exe
           compression-level: 0
           if-no-files-found: error
