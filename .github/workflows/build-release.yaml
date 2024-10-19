@@ -38,7 +38,7 @@ jobs:
         id: get_version
         run: |
           $version = (Invoke-Expression '.\build_artifacts\dpapi-cli.exe --version')
-          echo "PROGRAM_VERSION=${version}" >> $GITHUB_ENV
+          echo "PROGRAM_VERSION=${version}" >> $env:GITHUB_ENV
         shell: pwsh
 
       - name: Create GitHub Release
@@ -48,5 +48,6 @@ jobs:
             build_artifacts/dpapi-cli.exe 
             --title "Release v${{ env.PROGRAM_VERSION }}" 
             --notes "New release of dpapi-cli version ${{ env.PROGRAM_VERSION }}."
+            --latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
