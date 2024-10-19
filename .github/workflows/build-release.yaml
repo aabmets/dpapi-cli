@@ -23,3 +23,20 @@ jobs:
           path: ${{ github.workspace }}/build/Release_x64/bin/dpapi-cli.exe
           compression-level: 0
           if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dpapi-cli-build
+          path: build_artifacts
+
+      - name: Get binary version
+        id: get_version
+        run: |
+          version=$(build_artifacts/dpapi-cli.exe --version)
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo $version
