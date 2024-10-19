@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="version.h">
+    <ClInclude Include="metadata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

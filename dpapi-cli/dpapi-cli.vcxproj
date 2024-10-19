@@ -144,7 +144,7 @@
     <ClCompile Include="dpapi-cli.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="version.h" />
+    <ClInclude Include="metadata.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dpapi-cli.rc" />
