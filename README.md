@@ -1,6 +1,6 @@
 # DPAPI-CLI
 
-DPAPI-CLI is a command-line tool that allows you to encrypt and decrypt data using the Windows Data Protection API (DPAPI).  
+DPAPI-CLI is a command-line tool that allows you to encrypt and decrypt data using the Windows Data Protection API (DPAPI). 
 It supports both user- and machine-specific encryption keys, making it suitable for various scenarios.
 
 ## Features
