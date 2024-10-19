@@ -39,19 +39,19 @@ jobs:
           name: dpapi-cli-build
           path: build_artifacts
 
-      - name: Get version numbers
+      - name: Get binary version
         shell: pwsh
         run: |
           $version = (Invoke-Expression '.\build_artifacts\dpapi-cli.exe --version')
-          echo "BUILT_PROGRAM_VERSION=${$version}" >> $env:GITHUB_ENV
-
+          echo "PROGRAM_VERSION=${version}" >> $env:GITHUB_ENV
+        
       - name: Create GitHub Release
         run: |
           gh release create `
-            "v${{ env.BUILT_PROGRAM_VERSION }}" `
+            "v${{ env.PROGRAM_VERSION }}" `
             "build_artifacts/dpapi-cli.exe" `
-            --title "Release v${{ env.BUILT_PROGRAM_VERSION }}" `
-            --notes "New release of dpapi-cli version ${{ env.BUILT_PROGRAM_VERSION }}." `
+            --title "Release v${{ env.PROGRAM_VERSION }}" `
+            --notes "New release of dpapi-cli version ${{ env.PROGRAM_VERSION }}." `
             --latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
