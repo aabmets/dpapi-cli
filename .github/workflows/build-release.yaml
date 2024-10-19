@@ -50,7 +50,7 @@ jobs:
 
       - name: "Process version numbers"
         id: "semver"
-        uses: YunaBraska/semver-info-action@v2
+        uses: YunaBraska/semver-info-action@main
         with:
           semver-a: "${{ env.BUILT_PROGRAM_VERSION }}"
           semver-b: "${{ env.LATEST_RELEASE_VERSION }}"
