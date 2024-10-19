@@ -199,7 +199,7 @@ int handleDecrypt(const std::string& input, const std::string& outputFile, const
 int main(int argc, char* argv[]) {
     if (argc >= 2) {
         if (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0) {
-            std::cout << PROGRAM_VERSION << std::endl;
+            std::cout << SEMVER_STRING << std::endl;
             return 0;
         }
         else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
