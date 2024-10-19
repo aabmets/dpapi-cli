@@ -56,13 +56,13 @@ jobs:
           semver-b: "${{ env.LATEST_RELEASE_VERSION }}"
 
       - name: "Validate version numbers"
-        if: !steps.semver.outputs.is_greater_a
+        if: ${{ !steps.semver.outputs.is_greater_a }}
         run: |
           echo "Cannot create a new release with lesser or equal version number ${{ env.BUILT_PROGRAM_VERSION }}!"
           exit 1
 
       - name: Create GitHub Release
-        if: !failure()
+        if: ${{ !failure() }}
         run: |
           gh release create `
             "v${{ env.BUILT_PROGRAM_VERSION }}" `
