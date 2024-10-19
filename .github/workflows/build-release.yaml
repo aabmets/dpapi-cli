@@ -37,6 +37,7 @@ jobs:
       - name: Get binary version
         id: get_version
         run: |
-          version=$(build_artifacts/dpapi-cli.exe --version)
-          echo "version=$version" >> $GITHUB_OUTPUT
+          $version = (Invoke-Expression '.\build_artifacts\dpapi-cli.exe --version')
+          echo "version=$version" >> $env:GITHUB_OUTPUT
           echo $version
+        shell: pwsh
