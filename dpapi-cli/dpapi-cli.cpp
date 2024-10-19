@@ -7,6 +7,9 @@
 #include <cstring>
 #include <filesystem>
 
+
+std::string PROGRAM_VERSION = "1.0.0";
+
 enum Scope {
     CurrentUser,
     LocalMachine
@@ -184,7 +187,16 @@ int handleDecrypt(const std::string& input, const std::string& outputFile, const
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
+    if (argc >= 2) {
+        if (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "--version") == 0) {
+            std::cout << PROGRAM_VERSION << std::endl;
+            return 0;
+        }
+        else if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
+            printUsage();
+            return 0;
+        }
+    } else if (argc < 2) {
         printUsage();
         return 1;
     }
@@ -214,10 +226,6 @@ int main(int argc, char* argv[]) {
         }
         else if ((strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--scope") == 0) && i + 1 < argc) {
             scopeStr = argv[++i];
-        }
-        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
-            printUsage();
-            return 0;
         }
     }
 
