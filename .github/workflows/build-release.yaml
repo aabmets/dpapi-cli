@@ -39,20 +39,36 @@ jobs:
           name: dpapi-cli-build
           path: build_artifacts
 
-      - name: Get binary version
-        id: get_version
-        run: |
-          $version = (Invoke-Expression '.\build_artifacts\dpapi-cli.exe --version')
-          echo "PROGRAM_VERSION=${version}" >> $env:GITHUB_ENV
+      - name: Get version numbers
         shell: pwsh
+        run: |
+          $built_program_version = (Invoke-Expression '.\build_artifacts\dpapi-cli.exe --version')
+          echo "BUILT_PROGRAM_VERSION=${$built_program_version}" >> $env:GITHUB_ENV
+
+          $latest_release_version = gh release list --limit 1 --json tagName --jq '.[0].tagName'
+          echo "LATEST_RELEASE_VERSION=${latest_release_version}" >> $env:GITHUB_ENV
+
+      - name: "Process version numbers"
+        id: "semver"
+        uses: YunaBraska/semver-info-action@v2
+        with:
+          semver-a: "${{ env.BUILT_PROGRAM_VERSION }}"
+          semver-b: "${{ env.LATEST_RELEASE_VERSION }}"
+
+      - name: "Validate version numbers"
+        if: !steps.semver.outputs.is_greater_a
+        run: |
+          echo "Cannot create a new release with lesser or equal version number ${{ env.BUILT_PROGRAM_VERSION }}!"
+          exit 1
 
       - name: Create GitHub Release
+        if: !failure()
         run: |
           gh release create `
-            "v${{ env.PROGRAM_VERSION }}" `
+            "v${{ env.BUILT_PROGRAM_VERSION }}" `
             "build_artifacts/dpapi-cli.exe" `
-            --title "Release v${{ env.PROGRAM_VERSION }}" `
-            --notes "New release of dpapi-cli version ${{ env.PROGRAM_VERSION }}." `
+            --title "Release v${{ env.BUILT_PROGRAM_VERSION }}" `
+            --notes "New release of dpapi-cli version ${{ env.BUILT_PROGRAM_VERSION }}." `
             --latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
