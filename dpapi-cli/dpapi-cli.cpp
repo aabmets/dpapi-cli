@@ -1,4 +1,15 @@
-﻿#include <windows.h>
+﻿/*
+ *   MIT License
+ *
+ *   Copyright (c) 2024, Mattias Aabmets
+ *
+ *   The contents of this file are subject to the terms and conditions defined in the License.
+ *   You may not use, modify, or distribute this file except in compliance with the License.
+ *
+ *   SPDX-License-Identifier: MIT
+ */
+
+#include <windows.h>
 #include <wincrypt.h>
 #include <iostream>
 #include <fstream>
@@ -6,9 +17,8 @@
 #include <string>
 #include <cstring>
 #include <filesystem>
+#include "version.h"
 
-
-std::string PROGRAM_VERSION = "1.0.0";
 
 enum Scope {
     CurrentUser,
